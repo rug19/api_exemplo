@@ -1,3 +1,4 @@
+package api.exemplo.aluno
 
 class Aluno {
     Long id
@@ -7,10 +8,12 @@ class Aluno {
 
     static constraints = {
         nome nullable: false, blank: false
-        email nullable:false, black: false, email: true
+        email nullable: false, blank: false, email: true
         dataNascimento nullable: false
-
     }
 
+    static mapping = {
+        version false  // Remove controle de versão se não precisar
+    }
 }
 
