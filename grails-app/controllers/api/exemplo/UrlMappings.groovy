@@ -8,12 +8,12 @@ class UrlMappings {
 
 
         // Rotas RESTful para API
-        "/api/alunos"(controller: 'aluno.aluno') {
-            action = [GET: "index", POST: "save"]
+        "/api/alunos"(controller: 'aluno') {
+            action = [GET: "list", POST: "create"]
         }
 
-        "/api/alunos/$id"(controller: 'aluno.aluno') {
-            action = [GET: "show", PUT: "update", DELETE: "delete"]
+        "/api/alunos/$id"(controller: 'aluno') {
+            action = [GET: "getById", PATCH: "update", DELETE: "delete"]
         }
 
 

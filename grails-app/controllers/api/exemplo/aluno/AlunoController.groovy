@@ -12,51 +12,53 @@ class AlunoController {
     AlunoService alunoService
 
     static allowedMethods = [
-            save  : "POST",
-            update: "PUT",
+            list  : "GET",
+            getById: "GET",
+            create  : "POST",
+            update: ["PATCH"],
             delete: "DELETE"
     ]
 
 
-//    // Lista todos os alunos
-//    def index() {
-//        def alunos = alunoService.listarAlunos()
-//        render alunos as JSON
-//
-//    }
-//
-//
-//    // Busca um aluno específico
-//    def show(Long id) {
-//        def aluno = alunoService.buscarAluno(id)
-//        if (!aluno) {
-//            response.status = 404
-//            render([message: e.message] as JSON)
-//            return
-//        }
-//        render aluno as JSON
-//    }
+    // Lista todos os alunos
+    def list() {
+        def alunos = alunoService.listStudents()
+        render alunos as JSON
 
+    }
+
+    // Busca um aluno específico
+    def getById(Long id) {
+        try {
+            def aluno = alunoService.getStudentById(id)
+            response.status = 200
+            render aluno as JSON
+        } catch (IllegalArgumentException e){
+            response.status = 404
+            render([message: e.message] as JSON)
+
+        }
+    }
 
     //Cria um novo aluno
-    def save() {
+    def create() {
         try {
-            def aluno = alunoService.salvarAluno(request.JSON)
+            def aluno = alunoService.createStudent(request.JSON)
             response.status = 201
             render aluno as JSON
 
         } catch (ValidationException e) {
             response.status = 400
-            render([errors: e.errors] as JSON)
+            render([message: e.message] as JSON)
         }
     }
 
-
     //Atualiza um aluno existente
     def update(Long id) {
-
         try {
-            render alunoService.atualizarAluno(id, request.JSON) as JSON
+            def aluno = alunoService.updateStudent(id, request.JSON)
+            response.status = 200
+            render aluno  as JSON
 
         } catch (ValidationException e) {
             response.status = 400
@@ -68,13 +70,11 @@ class AlunoController {
 
     }
 
-
     //Deleta um aluno
     def delete(Long id) {
         try {
-            render alunoService.deletarAluno(id) as JSON
+            def aluno = alunoService.deleteStudent(id)
             response.status = 204
-
         } catch (IllegalArgumentException e) {
             response.status = 404
             render([message: e.message] as JSON)

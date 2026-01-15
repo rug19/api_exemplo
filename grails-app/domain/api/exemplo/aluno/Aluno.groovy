@@ -7,13 +7,20 @@ class Aluno {
     Date dataNascimento
 
     static constraints = {
-        nome nullable: false, blank: false
-        email nullable: false, blank: false, email: true
-        dataNascimento nullable: false
+        nome nullable: false, blank: false, size: 3..100
+        email nullable: false, blank: false, email: true, unique: true, maxSize: 150
+        dataNascimento nullable: false, validator: { date, obj ->
+            if (date.after(new Date())) {
+                return 'invalid.birthDate'
+            }
+        }
     }
 
+
     static mapping = {
-        version false  // Remove controle de versão se não precisar
+        version false
+        dataNascimento type: 'date'
     }
 }
+
 
