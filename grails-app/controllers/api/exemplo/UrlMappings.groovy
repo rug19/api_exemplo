@@ -3,15 +3,20 @@ package api.exemplo
 class UrlMappings {
 
     static mappings = {
-        "/$controller/$action?/$id?(.$format)?"{
-            constraints {
-                // apply constraints here
-            }
+
+        "/"(controller: "home", action: "index")
+
+
+        // Rotas RESTful para API
+        "/api/alunos"(controller: 'aluno') {
+            action = [GET: "list", POST: "create"]
         }
 
-        "/"(view:"/index")
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        "/api/alunos/$id"(controller: 'aluno') {
+            action = [GET: "getById", PATCH: "update", DELETE: "delete"]
+        }
+
+
     }
 }
 
