@@ -10,7 +10,7 @@ import javax.xml.bind.ValidationException
 class AlunoService {
 
     //Cria um aluno
-    Aluno createStudent(Map dados) {
+    Aluno criarAluno(Map dados) {
         def aluno = new Aluno(dados)
         if (!aluno.validate()) {
             throw new ValidationException("Dados do aluno inválidos: ${aluno.errors}")
@@ -20,12 +20,12 @@ class AlunoService {
     }
 
 
-    List<Aluno> listStudents() {
+    List<Aluno> listarAlunos() {
         return Aluno.list()
     }
 
 
-    Aluno getStudentById(Long id) {
+    Aluno listarAlunoPorId(Long id) {
         def aluno = Aluno.get(id)
         if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
@@ -34,7 +34,7 @@ class AlunoService {
     }
 
 
-    Aluno updateStudent(Long id, Map dados) {
+    Aluno atualizarAluno(Long id, Map dados) {
         def aluno = Aluno.get(id)
         if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
@@ -48,7 +48,7 @@ class AlunoService {
     }
 
 
-    Aluno deleteStudent(Long id) {
+    Aluno deletarAluno(Long id) {
         def aluno = Aluno.get(id)
         if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")

@@ -8,7 +8,7 @@ import javax.xml.bind.ValidationException
 @Transactional
 class CursoService {
 
-    Curso createCourse(Map dados){
+    Curso criarCurso(Map dados){
         def curso = new Curso(dados)
         if(!curso.validate()){
             throw new ValidationException(
@@ -19,11 +19,11 @@ class CursoService {
         return curso
     }
 
-    List<Curso>listCourse(){
+    List<Curso>listarCurso(){
         return Curso.list()
     }
 
-    Curso getCourseById(Long id){
+    Curso listarCursoPorId(Long id){
         def curso = Curso.get(id)
         if(!curso){
             throw new IllegalArgumentException("Curso não encontrado pelo ID: ${id}")
@@ -31,7 +31,7 @@ class CursoService {
         return curso
     }
 
-    Curso updateCourse(Long id, Map dados){
+    Curso atualizarCurso(Long id, Map dados){
         def curso = Curso.get(id)
         if(!curso) {
             throw new IllegalArgumentException("Curso não encontrado pelo ID: ${id}")
@@ -47,7 +47,7 @@ class CursoService {
         return curso
     }
 
-    Curso deleteCourse(Long id){
+    Curso deletarCurso(Long id){
         def curso = Curso.get(id)
         if(!curso){
             throw new IllegalArgumentException("Curso não encontrado pelo id ${id}")

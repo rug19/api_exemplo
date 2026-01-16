@@ -12,21 +12,31 @@ class UrlMappings {
         //Aluno
 
         "/api/alunos"(controller: 'aluno') {
-            action = [GET: "list", POST: "create"]
+            action = [GET: "listar", POST: "criar"]
         }
 
         "/api/alunos/$id"(controller: 'aluno') {
-            action = [GET: "getById", PATCH: "update", DELETE: "delete"]
+            action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
         }
 
         //Curso
 
         "/api/cursos"(controller: 'curso') {
-            action = [GET: "list", POST: "create"]
+            action = [GET: "listar", POST: "criar"]
         }
 
         "/api/cursos/$id"(controller: 'curso') {
-            action = [GET: "getById", PATCH: "update", DELETE: "delete"]
+            action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
+        }
+
+        //Matricula
+
+        "/api/matriculas"(controller: 'matricula'){
+            action = [GET: "listar", POST: "criar"]
+        }
+
+        "/api/matriculas/$id"(controller: 'matricula'){
+            action = [GET: "listarPorId", DELETE: "deletar"]
         }
 
 

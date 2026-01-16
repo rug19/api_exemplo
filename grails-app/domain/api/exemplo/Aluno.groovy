@@ -6,6 +6,8 @@ class Aluno {
     String email
     Date dataNascimento
 
+    static hasMany = [matricula: Matricula]
+
     static constraints = {
         nome nullable: false, blank: false, size: 3..100
         email nullable: false, blank: false, email: true, unique: true, maxSize: 150

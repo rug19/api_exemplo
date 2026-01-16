@@ -10,60 +10,60 @@ class CursoController {
     CursoService cursoService
 
     static allowedMethods = [
-        list  : "GET",
-        getById: "GET",
-        create  : "POST",
-        update: ["PATCH"],
-        delete: "DELETE"
+            listar      : "GET",
+            listarPeloId: "GET",
+            criar       : "POST",
+            atualizar   : ["PATCH"],
+            deletar     : "DELETE"
     ]
 
-    def create(){
+    def criar() {
         try {
-            def curso = cursoService.createCourse(request.JSON)
+            def curso = cursoService.criarCurso(request.JSON)
             response.status = 201
             render curso as JSON
-        } catch(ValidationException e){
+        } catch (ValidationException e) {
             response.status = 400
             render([errors: e.errors] as JSON)
         }
     }
 
-    def list(){
-        def curso = cursoService.listCourse()
+    def listar() {
+        def curso = cursoService.listarCurso()
         render curso as JSON
     }
 
-    def getById(Long id){
+    def listarPeloId(Long id) {
         try {
-            def curso = cursoService.getCourseById(id)
+            def curso = cursoService.listarCursoPorId(id)
             response.status = 200
             render curso as JSON
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             response.status = 404
             render([message: e.message] as JSON)
         }
     }
 
-    def update(Long id){
+    def atualizar(Long id) {
         try {
-            def curso = cursoService.updateCourse(id, request.JSON)
+            def curso = cursoService.atualizarCurso(id, request.JSON)
             response.status = 200
             render curso as JSON
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             response.status = 404
             render([message: e.message] as JSON)
-        }catch(ValidationException e){
+        } catch (ValidationException e) {
             response.status = 400
             render([errors: e.errors] as JSON)
         }
     }
 
-    def delete(Long id){
+    def deletar(Long id) {
         try {
-            def curso = cursoService.deleteCourse(id)
+            def curso = cursoService.deletarCurso(id)
             response.status = 204
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             render([message: e.message] as JSON)
         }
     }

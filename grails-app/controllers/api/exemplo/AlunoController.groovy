@@ -12,38 +12,36 @@ class AlunoController {
     AlunoService alunoService
 
     static allowedMethods = [
-            list  : "GET",
-            getById: "GET",
-            create  : "POST",
-            update: ["PATCH"],
-            delete: "DELETE"
+            listar  : "GET",
+            listarPeloId: "GET",
+            criar  : "POST",
+            atualizar: ["PATCH"],
+            deletar: "DELETE"
     ]
 
 
-    // Lista todos os alunos
-    def list() {
-        def alunos = alunoService.listStudents()
+    def listar() {
+        def alunos = alunoService.listarAlunos()
         render alunos as JSON
 
     }
 
-    // Busca um aluno específico
-    def getById(Long id) {
+    def listarPeloId(Long id) {
         try {
-            def aluno = alunoService.getStudentById(id)
+            def aluno = alunoService.listarAlunoPorId(id)
             response.status = 200
             render aluno as JSON
         } catch (IllegalArgumentException e){
             response.status = 404
+
             render([message: e.message] as JSON)
 
         }
     }
 
-    //Cria um novo aluno
-    def create() {
+    def criar() {
         try {
-            def aluno = alunoService.createStudent(request.JSON)
+            def aluno = alunoService.criarAluno(request.JSON)
             response.status = 201
             render aluno as JSON
 
@@ -53,10 +51,9 @@ class AlunoController {
         }
     }
 
-    //Atualiza um aluno existente
-    def update(Long id) {
+    def atualizar(Long id) {
         try {
-            def aluno = alunoService.updateStudent(id, request.JSON)
+            def aluno = alunoService.atualizarAluno(id, request.JSON)
             response.status = 200
             render aluno  as JSON
 
@@ -70,10 +67,9 @@ class AlunoController {
 
     }
 
-    //Deleta um aluno
-    def delete(Long id) {
+    def deletar(Long id) {
         try {
-            def aluno = alunoService.deleteStudent(id)
+            def aluno = alunoService.deletarAluno(id)
             response.status = 204
         } catch (IllegalArgumentException e) {
             response.status = 404
