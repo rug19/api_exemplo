@@ -1,4 +1,4 @@
-package api.exemplo.aluno
+package api.exemplo
 
 
 import grails.gorm.transactions.Transactional
@@ -9,37 +9,32 @@ import javax.xml.bind.ValidationException
 @Transactional
 class AlunoService {
 
-
-    Aluno createStudent(Map dados) {
+    //Cria um aluno
+    Aluno criarAluno(Map dados) {
         def aluno = new Aluno(dados)
         if (!aluno.validate()) {
-            throw new ValidationException(
-                "Dados do aluno inválidos: ${aluno.errors}"
-            )
+            throw new ValidationException("Dados do aluno inválidos: ${aluno.errors}")
         }
         aluno.save()
         return aluno
     }
 
 
-    //Lista todos os alunos
-    List<Aluno> listStudents() {
+    List<Aluno> listarAlunos() {
         return Aluno.list()
     }
 
 
-    //Busca aluno por ID
-    Aluno getStudentById(Long id) {
+    Aluno listarAlunoPorId(Long id) {
         def aluno = Aluno.get(id)
-        if(!aluno){
+        if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
         }
         return aluno
     }
 
 
-     //Atualiza um aluno existente
-    Aluno updateStudent(Long id, Map dados) {
+    Aluno atualizarAluno(Long id, Map dados) {
         def aluno = Aluno.get(id)
         if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
@@ -53,8 +48,7 @@ class AlunoService {
     }
 
 
-    //Deleta um aluno
-    def deleteStudent(Long id) {
+    Aluno deletarAluno(Long id) {
         def aluno = Aluno.get(id)
         if (!aluno) {
             throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")

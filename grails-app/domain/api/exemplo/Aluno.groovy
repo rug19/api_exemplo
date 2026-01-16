@@ -1,10 +1,12 @@
-package api.exemplo.aluno
+package api.exemplo
 
 class Aluno {
     Long id
     String nome
     String email
     Date dataNascimento
+
+    static hasMany = [matricula: Matricula]
 
     static constraints = {
         nome nullable: false, blank: false, size: 3..100
