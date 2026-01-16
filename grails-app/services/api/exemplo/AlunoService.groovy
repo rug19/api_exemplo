@@ -1,4 +1,4 @@
-package api.exemplo.aluno
+package api.exemplo
 
 
 import grails.gorm.transactions.Transactional

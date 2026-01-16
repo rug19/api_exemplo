@@ -1,4 +1,4 @@
-package api.exemplo.curso
+package api.exemplo
 
 class Curso {
     Long id

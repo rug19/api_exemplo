@@ -1,4 +1,4 @@
-package api.exemplo.aluno
+package api.exemplo
 
 
 import grails.converters.JSON
@@ -62,7 +62,7 @@ class AlunoController {
 
         } catch (ValidationException e) {
             response.status = 400
-            render([errors: e.errors] as JSON)
+            render([message: e.message] as JSON)
         } catch (IllegalArgumentException e) {
             response.status = 404
             render([message: e.message] as JSON)

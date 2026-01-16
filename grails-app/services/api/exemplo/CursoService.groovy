@@ -1,4 +1,5 @@
-package api.exemplo.curso
+package api.exemplo
+
 
 import grails.gorm.transactions.Transactional
 
@@ -31,7 +32,7 @@ class CursoService {
     }
 
     Curso updateCourse(Long id, Map dados){
-        def curso = Course.get(id)
+        def curso = Curso.get(id)
         if(!curso) {
             throw new IllegalArgumentException("Curso não encontrado pelo ID: ${id}")
         }
@@ -44,5 +45,13 @@ class CursoService {
 
         curso.save()
         return curso
+    }
+
+    Curso deleteCourse(Long id){
+        def curso = Curso.get(id)
+        if(!curso){
+            throw new IllegalArgumentException("Curso não encontrado pelo id ${id}")
+        }
+        curso.delete()
     }
 }

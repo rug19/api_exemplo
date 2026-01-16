@@ -1,4 +1,4 @@
-package api.exemplo.aluno
+package api.exemplo
 
 class Aluno {
     Long id

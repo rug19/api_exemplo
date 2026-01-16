@@ -5,15 +5,15 @@
 ### **1. `def` no Groovy**
 ```groovy
 def salvarAluno(Map params) {
-    def aluno = new api.exemplo.aluno.Aluno(params)
+    def aluno = new api.exemplo.Aluno(params)
     // ...
 }
 ```
 
 - `def` = tipagem dinâmica (como `var` no JavaScript)
 - Você pode usar `def` OU especificar o tipo:
-  - `def aluno = new api.exemplo.aluno.Aluno()` ✅
-  - `api.exemplo.aluno.Aluno aluno = new api.exemplo.aluno.Aluno()` ✅ (mais recomendado para clareza)
+  - `def aluno = new api.exemplo.Aluno()` ✅
+  - `api.exemplo.Aluno aluno = new api.exemplo.Aluno()` ✅ (mais recomendado para clareza)
 
 ### **2. `Map params` - O que é?**
 ```groovy
@@ -25,7 +25,7 @@ Map params = [
 ]
 
 // Quando você faz:
-def aluno = new api.exemplo.aluno.Aluno(params)
+def aluno = new api.exemplo.Aluno(params)
 // Grails automaticamente mapeia as chaves para as propriedades do objeto
 ```
 
@@ -49,7 +49,7 @@ if (!aluno.validate()) {
 
 O `validate()` verifica as **constraints** definidas no Domain:
 
-**No api.exemplo.aluno.Aluno.groovy:**
+**No api.exemplo.Aluno.groovy:**
 ```groovy
 static constraints = {
     nome nullable: false, blank: false        // Obrigatório e não pode ser vazio
@@ -80,10 +80,10 @@ telefone nullable: true  // Campo opcional (pode ser null)
 ```
 grails-app/
 ├── domain/
-│   └── api.exemplo.aluno.Aluno.groovy                         ← SEM package (ou package simples)
+│   └── api.exemplo.Aluno.groovy                         ← SEM package (ou package simples)
 │
 ├── services/
-│   └── api.exemplo.aluno.AlunoService.groovy                  ← SEM package (Grails encontra automaticamente)
+│   └── api.exemplo.AlunoService.groovy                  ← SEM package (Grails encontra automaticamente)
 │
 ├── controllers/
 │   └── api/
@@ -114,13 +114,13 @@ class UrlMappings {
 
 **❌ NÃO USE package em Domain e Services:**
 ```groovy
-// api.exemplo.aluno.Aluno.groovy
-class api.exemplo.aluno.Aluno {
+// api.exemplo.Aluno.groovy
+class api.exemplo.Aluno {
     // SEM package aqui!
 }
 
-// api.exemplo.aluno.AlunoService.groovy
-class api.exemplo.aluno.AlunoService {
+// api.exemplo.AlunoService.groovy
+class api.exemplo.AlunoService {
     // SEM package aqui!
 }
 ```
@@ -146,14 +146,14 @@ Cliente (Postman/Frontend)
     ↓ chama método
     ↓
 ┌────────────────────────┐
-│   api.exemplo.aluno.AlunoService         │  ← Lógica de negócio
+│   api.exemplo.AlunoService         │  ← Lógica de negócio
 │   (Camada de Negócio)  │    Validações
 └────────────────────────┘    Transações
     ↓
     ↓ acessa banco
     ↓
 ┌────────────────────────┐
-│   api.exemplo.aluno.Aluno (Domain)       │  ← Modelo de dados
+│   api.exemplo.Aluno (Domain)       │  ← Modelo de dados
 │   (Camada de Dados)    │    GORM (ORM do Grails)
 └────────────────────────┘    Banco de Dados
 ```
@@ -183,9 +183,9 @@ def save() {
 
 **3. Service processa e salva:**
 ```groovy
-// api.exemplo.aluno.AlunoService.groovy
-api.exemplo.aluno.Aluno salvarAluno(Map params) {
-    def aluno = new api.exemplo.aluno.Aluno(params)  // Cria objeto com os dados do Map
+// api.exemplo.AlunoService.groovy
+api.exemplo.Aluno salvarAluno(Map params) {
+    def aluno = new api.exemplo.Aluno(params)  // Cria objeto com os dados do Map
     if (!aluno.validate()) {        // Valida constraints
         throw new IllegalArgumentException("Dados inválidos")
     }
@@ -196,8 +196,8 @@ api.exemplo.aluno.Aluno salvarAluno(Map params) {
 
 **4. Domain define estrutura:**
 ```groovy
-// api.exemplo.aluno.Aluno.groovy
-class api.exemplo.aluno.Aluno {
+// api.exemplo.Aluno.groovy
+class api.exemplo.Aluno {
     String nome
     String email
     Date dataNascimento
