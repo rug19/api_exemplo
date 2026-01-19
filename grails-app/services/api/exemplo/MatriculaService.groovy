@@ -1,6 +1,5 @@
 package api.exemplo
 
-import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 
 import javax.xml.bind.ValidationException
