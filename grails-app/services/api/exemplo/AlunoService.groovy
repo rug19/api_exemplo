@@ -9,7 +9,7 @@ import javax.xml.bind.ValidationException
 @Transactional
 class AlunoService {
 
-    //Cria um aluno
+
     Aluno criarAluno(Map dados) {
         def aluno = new Aluno(dados)
         if (!aluno.validate()) {

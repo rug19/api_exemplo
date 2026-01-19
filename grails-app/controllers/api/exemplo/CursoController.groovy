@@ -11,7 +11,7 @@ class CursoController {
 
     static allowedMethods = [
             listar      : "GET",
-            listarPeloId: "GET",
+            listarPorId: "GET",
             criar       : "POST",
             atualizar   : ["PATCH"],
             deletar     : "DELETE"
@@ -33,7 +33,7 @@ class CursoController {
         render curso as JSON
     }
 
-    def listarPeloId(Long id) {
+    def listarPorId(Long id) {
         try {
             def curso = cursoService.listarCursoPorId(id)
             response.status = 200

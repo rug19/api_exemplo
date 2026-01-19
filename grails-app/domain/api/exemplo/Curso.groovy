@@ -16,7 +16,6 @@ class Curso {
 
     static mapping = {
         version: false
-        dataNascimento type: 'date'
 
     }
 

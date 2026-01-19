@@ -8,12 +8,11 @@ import javax.xml.bind.ValidationException
 
 class AlunoController {
 
-    // Grails injeta o service automaticamente
     AlunoService alunoService
 
     static allowedMethods = [
             listar  : "GET",
-            listarPeloId: "GET",
+            listarPorId: "GET",
             criar  : "POST",
             atualizar: ["PATCH"],
             deletar: "DELETE"
@@ -26,7 +25,7 @@ class AlunoController {
 
     }
 
-    def listarPeloId(Long id) {
+    def listarPorId(Long id) {
         try {
             def aluno = alunoService.listarAlunoPorId(id)
             response.status = 200

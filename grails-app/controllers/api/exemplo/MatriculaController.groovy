@@ -10,12 +10,11 @@ class MatriculaController {
 
     static allowedMethods = [
             listar  : "GET",
-            listarPeloId: "GET",
+            listarPorId: "GET",
             criar  : "POST",
             deletar: "DELETE"
     ]
 
-    //CRIAR MATRICULA
     def criar() {
         try {
             def matricula = matriculaService.criarMatricula(request.JSON)
@@ -32,14 +31,12 @@ class MatriculaController {
 
     }
 
-    //LISTAR MATRICULA
     def listar() {
         def matricula = matriculaService.listarMatriculas()
         response.status = 200
         render matricula as JSON
     }
 
-    //LISTAR MATRICULA POR ID
     def listarPorId(Long id) {
         try {
             def matricula = matriculaService.listarMatriculaPorId(id)
@@ -52,7 +49,6 @@ class MatriculaController {
 
     }
 
-    //DELEATR UMA MATRICULA
     def deletar(Long id) {
         try {
             def matricula = matriculaService.deletarMatricula(id)
