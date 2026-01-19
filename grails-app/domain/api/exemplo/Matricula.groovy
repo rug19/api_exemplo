@@ -21,7 +21,7 @@ class Matricula {
 
     static mapping = {
         version: false
-        dataNascimento type: 'date'
+        dataMatricula type: 'date'
 
     }
 
