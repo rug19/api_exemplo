@@ -15,6 +15,10 @@ class UrlMappings {
             action = [GET: "listar", POST: "criar"]
         }
 
+        "/api/alunos/pesquisar"(controller: 'aluno') {
+            action = [GET: "pesquisar"]
+        }
+
         "/api/alunos/$id"(controller: 'aluno') {
             action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
         }

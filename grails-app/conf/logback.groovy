@@ -34,3 +34,9 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 root(ERROR, ['STDOUT'])
+
+//// Logs SQL - Exibe as queries executadas
+//logger('org.hibernate.SQL', DEBUG, ['STDOUT'], false)
+//
+//// Logs dos parâmetros SQL (bind parameters) - valores que são passados nas queries
+//logger('org.hibernate.type.descriptor.sql.BasicBinder', TRACE, ['STDOUT'], false)
