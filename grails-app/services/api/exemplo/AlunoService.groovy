@@ -3,36 +3,53 @@ package api.exemplo
 
 import grails.gorm.transactions.Transactional
 
-import javax.swing.CellEditor
 import javax.xml.bind.ValidationException
 
 
 @Transactional
 class AlunoService {
 
-    List<Aluno> pesquisar(Map filtros) {
-        def resultado = Aluno.createCriteria().list {
+    Map pesquisar(Map filtros) {
+
+        def max = filtros.max ? filtros.max.toInteger() : 10
+        def page = filtros.page ? filtros.page.toInteger() : 1
+        def offset = (page - 1) * max
+
+        Date dataInicio = null
+        Date dataFinal = null
+
+        if (filtros.dataInicio && filtros.dataFinal) {
+
+            def formato = new java.text.SimpleDateFormat('dd/MM/yyyy')
+            dataInicio = formato.parse(filtros.dataInicio.toString())
+            dataFinal = formato.parse(filtros.dataFinal.toString())
+
+        }
+
+        def criteria = Aluno.createCriteria()
+
+        def resultado = criteria.list(max: max, offset: offset) {
             if (filtros.nome) {
                 ilike("nome", "%${filtros.nome}%")
             }
             if (filtros.email) {
-                eq("email", "${filtros.email}")
+                eq("email", filtros.email)
             }
 
-            if (filtros.dataInicio && filtros.dataFinal) {
-
-                def formato = new java.text.SimpleDateFormat('dd/MM/yyyy')
-                Date dataInicio = formato.parse(filtros.dataInicio.toString())
-                Date dataFinal = formato.parse(filtros.dataFinal.toString())
-
+            if (dataInicio && dataFinal) {
                 between('dataNascimento', dataInicio, dataFinal)
 
             }
 
-            order('nome', 'asc')
 
         }
-        return resultado ?: []
+        return [
+                dados: resultado ?: [],
+                paginacao: [
+                        paginaAtual: page,
+                        itensPorPagina: max,
+                ]
+        ]
     }
 
 
@@ -51,13 +68,13 @@ class AlunoService {
 //    }
 
 
-//    Aluno listarAlunoPorId(Long id) {
-//        def aluno = Aluno.get(id)
-//        if (!aluno) {
-//            throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
-//        }
-//        return aluno
-//    }
+    Aluno listarAlunoPorId(Long id) {
+        def aluno = Aluno.get(id)
+        if (!aluno) {
+            throw new IllegalArgumentException("Aluno não encontrado com ID: ${id}")
+        }
+        return aluno
+    }
 
 
     Aluno atualizarAluno(Long id, Map dados) {

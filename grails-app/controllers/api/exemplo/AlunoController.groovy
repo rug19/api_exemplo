@@ -23,10 +23,13 @@ class AlunoController {
     def pesquisar() {
         try {
             def filtros = [
-                    nome       : params.nome,
-                    email      : params.email,
-                    dataInicio : params.dataInicio,
-                    dataFinal  : params.dataFinal
+                    nome      : params.nome,
+                    email     : params.email,
+                    dataInicio: params.dataInicio,
+                    dataFinal : params.dataFinal,
+                    page      : params.page,
+                    max       : params.max
+
             ]
 
             def alunos = alunoService.pesquisar(filtros)

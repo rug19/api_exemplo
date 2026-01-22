@@ -33,6 +33,10 @@ class UrlMappings {
             action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
         }
 
+        "/api/cursos/pesquisar"(controller: 'curso') {
+            action = [GET: "pesquisar"]
+        }
+
         //Matricula
 
         "/api/matriculas"(controller: 'matricula'){
