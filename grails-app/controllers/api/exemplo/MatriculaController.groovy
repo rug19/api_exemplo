@@ -52,30 +52,30 @@ class MatriculaController {
 
     }
 
-    def listar() {
-        def matriculas = matriculaService.listarMatriculas()
-        def resultado = matriculas.collect { matricula ->
-            [
-                    id: matricula.id,
-                    dataMatricula: matricula.dataMatricula,
-                    valorPago: matricula.valorPago,
-                    aluno: [
-                            id: matricula.aluno.id,
-                            nome: matricula.aluno.nome,
-                            email: matricula.aluno.email,
-                            dataNascimento: matricula.aluno.dataNascimento
-                    ],
-                    curso: [
-                            id: matricula.curso.id,
-                            titulo: matricula.curso.titulo,
-                            descricao: matricula.curso.descricao,
-                            cargaHoraria: matricula.curso.cargaHoraria
-                    ]
-            ]
-        }
-        response.status = 200
-        render resultado as JSON
-    }
+//    def listar() {
+//        def matriculas = matriculaService.listarMatriculas()
+//        def resultado = matriculas.collect { matricula ->
+//            [
+//                    id: matricula.id,
+//                    dataMatricula: matricula.dataMatricula,
+//                    valorPago: matricula.valorPago,
+//                    aluno: [
+//                            id: matricula.aluno.id,
+//                            nome: matricula.aluno.nome,
+//                            email: matricula.aluno.email,
+//                            dataNascimento: matricula.aluno.dataNascimento
+//                    ],
+//                    curso: [
+//                            id: matricula.curso.id,
+//                            titulo: matricula.curso.titulo,
+//                            descricao: matricula.curso.descricao,
+//                            cargaHoraria: matricula.curso.cargaHoraria
+//                    ]
+//            ]
+//        }
+//        response.status = 200
+//        render resultado as JSON
+//    }
 
     def listarPorId(Long id) {
         try {
