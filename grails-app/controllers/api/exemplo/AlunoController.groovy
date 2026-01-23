@@ -11,12 +11,36 @@ class AlunoController {
     AlunoService alunoService
 
     static allowedMethods = [
-            listar  : "GET",
+            listar     : "GET",
             listarPorId: "GET",
-            criar  : "POST",
-            atualizar: ["PATCH"],
-            deletar: "DELETE"
+            pesquisar  : "GET",
+            criar      : "POST",
+            atualizar  : ["PATCH"],
+            deletar    : "DELETE"
     ]
+
+
+    def pesquisar() {
+        try {
+            def filtros = [
+                    nome      : params.nome,
+                    email     : params.email,
+                    dataInicio: params.dataInicio,
+                    dataFinal : params.dataFinal,
+                    page      : params.page,
+                    max       : params.max
+
+            ]
+
+            def alunos = alunoService.pesquisar(filtros)
+            response.status = 200
+            render alunos as JSON
+        } catch (Exception e) {
+            response.status = 500
+            render([message: "Erro ao pesquisar alunos: ${e.message}"] as JSON)
+        }
+
+    }
 
 
     def listar() {
@@ -30,7 +54,7 @@ class AlunoController {
             def aluno = alunoService.listarAlunoPorId(id)
             response.status = 200
             render aluno as JSON
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             response.status = 404
 
             render([message: e.message] as JSON)
@@ -54,7 +78,7 @@ class AlunoController {
         try {
             def aluno = alunoService.atualizarAluno(id, request.JSON)
             response.status = 200
-            render aluno  as JSON
+            render aluno as JSON
 
         } catch (ValidationException e) {
             response.status = 400

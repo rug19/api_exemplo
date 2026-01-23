@@ -15,6 +15,10 @@ class UrlMappings {
             action = [GET: "listar", POST: "criar"]
         }
 
+        "/api/alunos/pesquisar"(controller: 'aluno') {
+            action = [GET: "pesquisar"]
+        }
+
         "/api/alunos/$id"(controller: 'aluno') {
             action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
         }
@@ -29,6 +33,10 @@ class UrlMappings {
             action = [GET: "listarPorId", PATCH: "atualizar", DELETE: "deletar"]
         }
 
+        "/api/cursos/pesquisar"(controller: 'curso') {
+            action = [GET: "pesquisar"]
+        }
+
         //Matricula
 
         "/api/matriculas"(controller: 'matricula'){
@@ -37,6 +45,10 @@ class UrlMappings {
 
         "/api/matriculas/$id"(controller: 'matricula'){
             action = [GET: "listarPorId", DELETE: "deletar"]
+        }
+
+        "/api/matriculas/pesquisar"(controller: 'matricula') {
+            action = [GET: "pesquisar"]
         }
 
 

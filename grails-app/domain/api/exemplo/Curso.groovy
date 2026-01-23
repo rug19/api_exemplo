@@ -15,7 +15,7 @@ class Curso {
     }
 
     static mapping = {
-        version: false
+        version false
 
     }
 

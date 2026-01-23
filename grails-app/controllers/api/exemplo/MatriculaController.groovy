@@ -15,6 +15,27 @@ class MatriculaController {
             deletar: "DELETE"
     ]
 
+    def pesquisar() {
+        try {
+
+            def dados = [
+                    dataMatriculaInicio: params.dataMatriculaInicio,
+                    dataMatriculaFim   : params.dataMatriculaFim,
+                    valorPagoMin      : params.valorPagoMin,
+                    valorPagoMax      : params.valorPagoMax,
+                    page               : params.page,
+                    max                : params.max
+            ]
+             def matriculas = matriculaService.pesquisar(dados)
+                response.status = 200
+                render matriculas as JSON
+        } catch (Exception e) {
+            response.status = 500
+            render([message: "Erro ao pesquisar matrículas: ${e.message}"] as JSON)
+        }
+
+    }
+
     def criar() {
         try {
             def matricula = matriculaService.criarMatricula(request.JSON)

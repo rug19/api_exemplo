@@ -10,12 +10,37 @@ class CursoController {
     CursoService cursoService
 
     static allowedMethods = [
-            listar      : "GET",
+            listar     : "GET",
+            pesquisar  : "GET",
             listarPorId: "GET",
-            criar       : "POST",
-            atualizar   : ["PATCH"],
-            deletar     : "DELETE"
+            criar      : "POST",
+            atualizar  : ["PATCH"],
+            deletar    : "DELETE"
     ]
+
+    def pesquisar() {
+        try {
+            def dados = [
+
+                    titulo         : params.titulo,
+                    descricao      : params.descricao,
+                    cargaHoraria   : params.cargaHoraria,
+                    cargaHorariaMin: params.cargaHorariaMin,
+                    cargaHorariaMax: params.cargaHorariaMax,
+                    page           : params.page,
+                    max            : params.max
+            ]
+
+            def curso = cursoService.pesquisar(dados)
+            response.status = 200
+            render curso as JSON
+        } catch (Exception e) {
+            response.status = 500
+            render([message: "Erro ao pesquisar curso: ${e.message}"] as JSON)
+        }
+
+    }
+
 
     def criar() {
         try {
