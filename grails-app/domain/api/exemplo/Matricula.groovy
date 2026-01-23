@@ -20,9 +20,8 @@ class Matricula {
     }
 
     static mapping = {
-        version: false
+        version false
         dataMatricula type: 'date'
-
     }
 
 }
